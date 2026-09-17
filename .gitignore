@@ -63,3 +63,7 @@ Thumbs.db
 *.zip
 *.7z
 *.rar
+
+# 课程配套源码 + 课程资料 PDF —— 版权归课程作者，单独放私有仓
+# （公开仓不含；对照样本见 github.com/finnyoun9/stm32-freertos-course-reference）
+firmware/course-reference/

@@ -4,7 +4,7 @@
 
 | 目录 | 放什么 | 状态 |
 | --- | --- | --- |
-| `schematic/` | 原理图（PDF / 源文件） | ☐ |
+| `schematic/` | 原理图（PDF / 源文件） | ☐ 课程板原理图因版权移入私有仓（见 `firmware/course-reference/README.md`） |
 | `pcb/` | PCB 源文件与渲染图 | ☐ |
 | `gerber/` | 打板生产资料 | ☐ |
 | `bom/` | BOM 与选型说明 | ☐ |

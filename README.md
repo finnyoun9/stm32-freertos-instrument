@@ -47,7 +47,7 @@
 | [`docs/08-待补与下一步.md`](docs/08-待补与下一步.md) | 没做完、没验证、想补的 |
 | [`docs/09-课程分集复习.md`](docs/09-课程分集复习.md) | **按集数**的复习线索（P1–P14），用来对照视频回看；含从代码算出的风险点。⚠️ 非视频转写，标 🔍 处需回视频确认 |
 | `firmware/my/demo/` | **成品工程**（STM32CubeIDE，2026-09-18 从 bench 导入，187 文件 / 7.4MB，不含编译产物） |
-| `firmware/course-reference/` | 课程各章配套源码（待归档） |
+| `firmware/course-reference/` | 课程各章配套源码 —— ⚠️ 版权归课程作者，**已移出本公开仓**，见 [私有对照仓](https://github.com/finnyoun9/stm32-freertos-course-reference) |
 | `hardware/` | 原理图、PCB、Gerber、BOM、照片 |
 | `docs/evidence/` | 日志、截图、波形文件、测量数据 |
 | `docs/images/` | 实物与界面照片 |
@@ -75,7 +75,7 @@
 | 知识体系「我的理解」 | ⏳ 待填（`docs/04`，项目落点已填） |
 | 成品实测指标（采样率 / 刷新率 / 精度 / 内存） | ⏳ 待实测（`docs/05`） |
 | 运行时观测（栈水位 / 堆余量 / CPU 占用） | ⏳ 全部未开（`docs/04 §9`） |
-| **源码归属确认**（哪些是自己写的） | ✅ 已完成代码取证（见 [`firmware/README.md`](firmware/README.md) 归属结论）；**3 条待你回忆确认**，未确认前不得写进简历 |
+| **源码归属确认**（哪些是自己写的） | ✅ **已用课程原码 diff 确认**（见 [`firmware/README.md`](firmware/README.md) 归属结论）：`App/` 层全为自己编写/重构，非照抄 |
 | 实物照片、原理图 | 🟡 原理图已归档，照片待补 |
 
 > ⚠️ 代码事实已经落盘，但**实测结论还基本是空的**。任何一格写「已验证」之前，先确认 `docs/evidence/` 里有对应文件。
