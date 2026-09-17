@@ -1,0 +1,65 @@
+# Keil MDK 编译产物
+Objects/
+Listings/
+DebugConfig/
+RTE/
+*.uvguix.*
+*.uvoptx.bak
+*.axf
+*.crf
+*.dep
+*.d
+*.o
+*.lnp
+*.iex
+*.htm
+*.build_log.htm
+*.scvd
+*.map
+*.lst
+*.su
+*.bin
+*.hex
+*.elf
+JLinkLog.txt
+JLinkSettings.ini
+
+# STM32CubeMX / 生成物
+*.mxproject
+.mxproject
+
+# 通用构建目录
+build/
+Debug/
+Release/
+.pio/
+
+# 硬件工具临时文件
+*.autosave
+*.bak
+*.lck
+*.dsn.bak
+*.brd.bak
+~$*
+*.tmp
+
+# EDA 自动备份目录（按需保留源文件）
+**/Project_Output/
+**/History/
+**/__Previews/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.swp
+
+# 压缩包（证据原始数据按需单独管理）
+*.zip
+*.7z
+*.rar
