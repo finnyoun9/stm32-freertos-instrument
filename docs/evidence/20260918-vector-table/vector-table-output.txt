@@ -1,0 +1,17 @@
+section .isr_vector addr 0x8000000 fileoff 0x1000 size 484
+0 initial_SP 0x2000c000
+1 Reset 0x8004035
+2 NMI 0x8003f81
+3 HardFault 0x8003f89
+4 MemManage 0x8003f91
+5 BusFault 0x8003f99
+6 UsageFault 0x8003fa1
+7 - 0x0
+8 - 0x0
+9 - 0x0
+10 - 0x0
+11 SVCall 0x80089e1
+12 DebugMon 0x8003fa9
+13 - 0x0
+14 PendSV 0x8008c61
+15 SysTick 0x8008ca9
