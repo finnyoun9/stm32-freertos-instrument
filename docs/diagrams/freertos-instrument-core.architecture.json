@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "STM32 FreeRTOS 便携测量仪：核心运行时与三合一数据流",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "output": "docs/diagrams/freertos-instrument-core.html",
+    "viewBox": [
+      1080,
+      540
+    ]
+  },
+  "components": [
+    {
+      "id": "sig",
+      "type": "external",
+      "label": "被测信号",
+      "sublabel": "PA1 采样 · PA3 触发",
+      "pos": [
+        40,
+        46
+      ],
+      "size": [
+        130,
+        62
+      ]
+    },
+    {
+      "id": "adc_fast",
+      "type": "backend",
+      "label": "ADC1 常规 + DMA1",
+      "sublabel": "TIM3 TRGO 128.1 kSa/s",
+      "tag": "1024 点缓冲",
+      "pos": [
+        250,
+        46
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "trig",
+      "type": "backend",
+      "label": "触发链",
+      "sublabel": "EXTI3 + Hold-Off 10 ms",
+      "tag": "Force 100 ms",
+      "pos": [
+        480,
+        46
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "adc_inj",
+      "type": "backend",
+      "label": "ADC1 注入序列",
+      "sublabel": "TIM2 TRGO 10 Hz",
+      "tag": "DMM / 电源 / 触发电压",
+      "pos": [
+        700,
+        46
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "keys",
+      "type": "external",
+      "label": "6 按键",
+      "sublabel": "10 ms 扫描",
+      "pos": [
+        40,
+        172
+      ],
+      "size": [
+        130,
+        62
+      ]
+    },
+    {
+      "id": "keytask",
+      "type": "backend",
+      "label": "vKeyTask",
+      "sublabel": "回调直接调面板",
+      "tag": "prio 3 · 512 B",
+      "pos": [
+        250,
+        172
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "eg",
+      "type": "messagebus",
+      "label": "事件组",
+      "sublabel": "9 个重绘位 bit0–8",
+      "tag": "只重绘变化面板",
+      "pos": [
+        480,
+        172
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "lcdtask",
+      "type": "backend",
+      "label": "vLCDTask",
+      "sublabel": "等事件组唤醒",
+      "tag": "prio 1 · 1 KB",
+      "pos": [
+        700,
+        172
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "lcd",
+      "type": "external",
+      "label": "LCD 320×240",
+      "sublabel": "SPI1 + DMA",
+      "pos": [
+        900,
+        172
+      ],
+      "size": [
+        130,
+        62
+      ]
+    },
+    {
+      "id": "dac",
+      "type": "backend",
+      "label": "DAC1 + DMA + TIM5",
+      "sublabel": "正弦 / 三角 / 方波",
+      "tag": "信号发生器",
+      "pos": [
+        40,
+        298
+      ],
+      "size": [
+        160,
+        62
+      ]
+    },
+    {
+      "id": "mb",
+      "type": "messagebus",
+      "label": "邮箱",
+      "sublabel": "xQueue len 1",
+      "tag": "DMM 数据覆盖式",
+      "pos": [
+        480,
+        298
+      ],
+      "size": [
+        160,
+        62
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "sig-adc",
+      "from": "sig",
+      "to": "adc_fast"
+    },
+    {
+      "id": "sig-trig",
+      "from": "sig",
+      "to": "trig",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          105,
+          20
+        ],
+        [
+          560,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "trig-adc",
+      "from": "trig",
+      "to": "adc_fast",
+      "label": "启动采集",
+      "variant": "emphasis"
+    },
+    {
+      "id": "adc-eg",
+      "from": "adc_fast",
+      "to": "eg",
+      "label": "DMA 完成置位",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          330,
+          140
+        ],
+        [
+          560,
+          140
+        ]
+      ]
+    },
+    {
+      "id": "inj-eg",
+      "from": "adc_inj",
+      "to": "eg",
+      "fromSide": "left",
+      "toSide": "bottom",
+      "via": [
+        [
+          690,
+          77
+        ],
+        [
+          690,
+          250
+        ],
+        [
+          560,
+          250
+        ]
+      ]
+    },
+    {
+      "id": "inj-mb",
+      "from": "adc_inj",
+      "to": "mb",
+      "label": "覆盖写",
+      "fromSide": "right",
+      "toSide": "bottom",
+      "via": [
+        [
+          1045,
+          77
+        ],
+        [
+          1045,
+          400
+        ],
+        [
+          560,
+          400
+        ]
+      ],
+      "labelSegment": 2
+    },
+    {
+      "id": "mb-lcd",
+      "from": "mb",
+      "to": "lcdtask",
+      "label": "Peek",
+      "fromSide": "right",
+      "toSide": "bottom",
+      "via": [
+        [
+          680,
+          329
+        ],
+        [
+          680,
+          255
+        ],
+        [
+          780,
+          255
+        ]
+      ]
+    },
+    {
+      "id": "key-eg",
+      "from": "keytask",
+      "to": "eg",
+      "label": "请求重绘",
+      "variant": "emphasis"
+    },
+    {
+      "id": "eg-lcd",
+      "from": "eg",
+      "to": "lcdtask"
+    },
+    {
+      "id": "lcd-spi",
+      "from": "lcdtask",
+      "to": "lcd"
+    },
+    {
+      "id": "key-dac",
+      "from": "keytask",
+      "to": "dac",
+      "label": "面板调参",
+      "fromSide": "bottom",
+      "toSide": "right",
+      "via": [
+        [
+          330,
+          266
+        ],
+        [
+          220,
+          266
+        ],
+        [
+          220,
+          329
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "任务划分与优先级",
+      "items": [
+        "vKeyTask prio 3 · 512 B：10 ms 扫描 6 键，回调直接调 GUI 面板",
+        "vLCDTask prio 1 · 1 KB：等事件组，只重绘变化的面板，SPI1 DMA 送屏",
+        "vLEDTask prio 0 · 512 B；定时器服务任务 prio 4 跑两个软定时器",
+        "四个任务栈合计 2.5 KB，而 configTOTAL_HEAP_SIZE 只有 8 KB"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "为什么这样切任务",
+      "items": [
+        "按键与蜂鸣解耦：扫描（KeyTask）与发声（BuzzerTask + 计数信号量 5,0）分开",
+        "LCD 独立任务 + 9 位事件组：按键、ADC 中断、软定时器都能请求重绘而不互相等待",
+        "Hold-Off 用软定时器而非 vTaskDelay：它必须在中断上下文里启动",
+        "ADC 完成与注入序列都在中断里 xEventGroupSetBitsFromISR 通知任务"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "最值得讲 + 已知隐患",
+      "items": [
+        "触发链是全项目最值得讲的部分：关自己中断防重入 → ADC DMA 采 1024 点 → Hold-Off → 复位 Force",
+        "隐患：DAC 的 DMA2_Channel3 中断优先级 0，高于 configMAX_SYSCALL_INTERRUPT_PRIORITY",
+        "蜂鸣器输出被注释（音效实际不响）；三角波只有上升段，疑似 bug"
+      ]
+    }
+  ]
+}

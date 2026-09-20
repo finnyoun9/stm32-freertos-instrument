@@ -51,8 +51,19 @@
 | `hardware/` | 原理图、PCB、Gerber、BOM、照片 |
 | `docs/evidence/` | 日志、截图、波形文件、测量数据 |
 | `docs/images/` | 实物与界面照片 |
+| [`docs/diagrams/`](docs/diagrams/README.md) | **架构图**：整机核心运行时与三合一数据流的交互式 HTML（Archify 生成）+ 规格 JSON + 校验凭据 |
 
 ---
+
+## 先看这张图
+
+[`docs/diagrams/freertos-instrument-core.html`](docs/diagrams/freertos-instrument-core.html) 一页讲清项目结构：五个任务的分工与优先级、事件组 / 信号量 / 邮箱谁给谁、示波器触发链与万用表 · 信号发生器两条旁路。**浏览器打开即可**（含明暗主题 / 平移缩放 / 搜索 / 演示 / 导出）；在 GitHub 上点开是源码视图，本地开：
+
+```bash
+open docs/diagrams/freertos-instrument-core.html
+```
+
+图里每个数值都能追到文件名 + 行号，**没实测的结论不画进图**；已知隐患（DAC 的 DMA 中断优先级、蜂鸣器被注释、四个观测宏全关）标在图卡片与 [`docs/diagrams/README.md`](docs/diagrams/README.md) 里。
 
 ## 现在怎么用
 
@@ -61,7 +72,8 @@
 3. 凡是写了「已验证」的结论，必须在 [`docs/07-证据清单.md`](docs/07-证据清单.md) 里有对应条目。
 4. 踩坑随手记进 [`docs/06-问题与排障日志.md`](docs/06-问题与排障日志.md)，别等想起来再补。
 5. 回看视频时对着 [`docs/09-课程分集复习.md`](docs/09-课程分集复习.md) 走：它按集数给了概念线索 + 你代码里的落点。**注意它标注的 🔍 处需你回视频确认**（该文件不是视频转写）。
-6. **最高优先级**：确认源码归属（[`firmware/README.md`](firmware/README.md) 的「待确认」）——这决定简历上能写什么。
+6. 复习任务划分 / IPC / 触发链时看 [`docs/diagrams/README.md`](docs/diagrams/README.md)：索引 + 证据锚点 + 交付凭据。
+7. **最高优先级**：确认源码归属（[`firmware/README.md`](firmware/README.md) 的「待确认」）——这决定简历上能写什么。
 
 ## 状态
 
